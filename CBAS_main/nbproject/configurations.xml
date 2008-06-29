@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="45">
+  <logicalFolder name="root" displayName="root" projectFiles="true">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <itemPath>jni.h</itemPath>
+      <itemPath>jni_md.h</itemPath>
+      <itemPath>Loader.h</itemPath>
+      <itemPath>Resource.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+      <itemPath>Resource.rc</itemPath>
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <itemPath>Loader.cc</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceEncoding>UTF-8</sourceEncoding>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <compilerSet>MinGW|MinGW</compilerSet>
+        <platform>3</platform>
+      </toolsSet>
+      <compileType>
+        <cCompilerTool>
+          <developmentMode>6</developmentMode>
+          <stripSymbols>true</stripSymbols>
+          <commandLine>-mwindows</commandLine>
+        </cCompilerTool>
+        <ccCompilerTool>
+          <developmentMode>6</developmentMode>
+          <stripSymbols>true</stripSymbols>
+          <commandLine>-mwindows</commandLine>
+        </ccCompilerTool>
+        <linkerTool>
+          <output>dist/Debug/CBAS</output>
+          <stripSymbols>true</stripSymbols>
+          <linkerLibItems>
+          </linkerLibItems>
+          <commandLine>Resource.o</commandLine>
+        </linkerTool>
+      </compileType>
+      <item path="Loader.cc">
+        <itemTool>1</itemTool>
+      </item>
+      <item path="Loader.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="Resource.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="Resource.rc">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="jni.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="jni_md.h">
+        <itemTool>3</itemTool>
+      </item>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <compilerSet>MinGW|MinGW</compilerSet>
+        <platform>3</platform>
+      </toolsSet>
+      <compileType>
+        <cCompilerTool>
+          <developmentMode>5</developmentMode>
+        </cCompilerTool>
+        <ccCompilerTool>
+          <developmentMode>5</developmentMode>
+        </ccCompilerTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <linkerTool>
+          <linkerLibItems>
+          </linkerLibItems>
+        </linkerTool>
+      </compileType>
+      <item path="Loader.cc">
+        <itemTool>1</itemTool>
+      </item>
+      <item path="Loader.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="Resource.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="Resource.rc">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="jni.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="jni_md.h">
+        <itemTool>3</itemTool>
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>
