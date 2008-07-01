@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="45">
+  <logicalFolder name="root" displayName="root" projectFiles="true">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <logicalFolder name="f2" displayName="core" projectFiles="true">
+        <itemPath>Bitmap.h</itemPath>
+        <itemPath>Color.h</itemPath>
+        <itemPath>DebugWnd.h</itemPath>
+        <itemPath>DTM.h</itemPath>
+        <itemPath>Find.h</itemPath>
+        <itemPath>Input.h</itemPath>
+        <itemPath>Plugins.h</itemPath>
+        <itemPath>Utils.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f1" displayName="zlib" projectFiles="true">
+        <itemPath>crc32.h</itemPath>
+        <itemPath>deflate.h</itemPath>
+        <itemPath>inffast.h</itemPath>
+        <itemPath>inffixed.h</itemPath>
+        <itemPath>inflate.h</itemPath>
+        <itemPath>inftrees.h</itemPath>
+        <itemPath>trees.h</itemPath>
+        <itemPath>zconf.h</itemPath>
+        <itemPath>zlib.h</itemPath>
+        <itemPath>zutil.h</itemPath>
+      </logicalFolder>
+      <itemPath>cbas_CodeEditor.h</itemPath>
+      <itemPath>dll.h</itemPath>
+      <itemPath>jni.h</itemPath>
+      <itemPath>jni_md.h</itemPath>
+      <itemPath>Main.h</itemPath>
+      <itemPath>MissingWindows.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <logicalFolder name="f2" displayName="core" projectFiles="true">
+        <itemPath>Bitmap.cc</itemPath>
+        <itemPath>Color.cc</itemPath>
+        <itemPath>DebugWnd.cc</itemPath>
+        <itemPath>DTM.cc</itemPath>
+        <itemPath>Find.cc</itemPath>
+        <itemPath>Input.cpp</itemPath>
+        <itemPath>Plugins.cc</itemPath>
+        <itemPath>Utils.cc</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f1" displayName="zlib" projectFiles="true">
+        <itemPath>adler32.c</itemPath>
+        <itemPath>crc32.c</itemPath>
+        <itemPath>deflate.c</itemPath>
+        <itemPath>gzio.c</itemPath>
+        <itemPath>inffast.c</itemPath>
+        <itemPath>inflate.c</itemPath>
+        <itemPath>inftrees.c</itemPath>
+        <itemPath>trees.c</itemPath>
+        <itemPath>zutil.c</itemPath>
+      </logicalFolder>
+      <itemPath>Main.cc</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceEncoding>UTF-8</sourceEncoding>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="2">
+      <toolsSet>
+        <compilerSet>MinGW_Windows|MinGW</compilerSet>
+        <platform>3</platform>
+      </toolsSet>
+      <compileType>
+        <cCompilerTool>
+          <developmentMode>6</developmentMode>
+          <stripSymbols>true</stripSymbols>
+          <commandLine>-DBUILD_DLL</commandLine>
+        </cCompilerTool>
+        <ccCompilerTool>
+          <developmentMode>6</developmentMode>
+          <stripSymbols>true</stripSymbols>
+          <commandLine>-DBUILD_DLL</commandLine>
+        </ccCompilerTool>
+        <fortranCompilerTool>
+          <developmentMode>6</developmentMode>
+        </fortranCompilerTool>
+        <linkerTool>
+          <output>dist/Debug/libcbas.dll</output>
+          <stripSymbols>true</stripSymbols>
+          <linkerKpic>false</linkerKpic>
+          <linkerLibItems>
+            <linkerLibLibItem>gdi32</linkerLibLibItem>
+          </linkerLibItems>
+          <commandLine>-Wl,--add-stdcall-alias</commandLine>
+        </linkerTool>
+      </compileType>
+      <item path="Bitmap.cc">
+        <itemTool>1</itemTool>
+      </item>
+      <item path="Bitmap.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="Color.cc">
+        <itemTool>1</itemTool>
+      </item>
+      <item path="Color.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="DTM.cc">
+        <itemTool>1</itemTool>
+      </item>
+      <item path="DTM.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="DebugWnd.cc">
+        <itemTool>1</itemTool>
+      </item>
+      <item path="DebugWnd.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="Find.cc">
+        <itemTool>1</itemTool>
+      </item>
+      <item path="Find.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="Input.cpp">
+        <itemTool>1</itemTool>
+      </item>
+      <item path="Input.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="Main.cc">
+        <itemTool>1</itemTool>
+      </item>
+      <item path="Main.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="MissingWindows.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="Plugins.cc">
+        <itemTool>1</itemTool>
+      </item>
+      <item path="Plugins.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="Utils.cc">
+        <itemTool>1</itemTool>
+      </item>
+      <item path="Utils.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="adler32.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="cbas_CodeEditor.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="crc32.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="crc32.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="deflate.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="deflate.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="dll.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="gzio.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="inffast.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="inffast.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="inffixed.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="inflate.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="inflate.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="inftrees.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="inftrees.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="jni.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="jni_md.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="trees.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="trees.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="zconf.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="zlib.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="zutil.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="zutil.h">
+        <itemTool>3</itemTool>
+      </item>
+    </conf>
+    <conf name="Release" type="2">
+      <toolsSet>
+        <compilerSet>MinGW|MinGW</compilerSet>
+        <platform>3</platform>
+      </toolsSet>
+      <compileType>
+        <cCompilerTool>
+          <developmentMode>5</developmentMode>
+        </cCompilerTool>
+        <ccCompilerTool>
+          <developmentMode>5</developmentMode>
+        </ccCompilerTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <linkerTool>
+          <linkerLibItems>
+          </linkerLibItems>
+        </linkerTool>
+      </compileType>
+      <item path="Bitmap.cc">
+        <itemTool>1</itemTool>
+      </item>
+      <item path="Bitmap.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="Color.cc">
+        <itemTool>1</itemTool>
+      </item>
+      <item path="Color.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="DTM.cc">
+        <itemTool>1</itemTool>
+      </item>
+      <item path="DTM.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="DebugWnd.cc">
+        <itemTool>1</itemTool>
+      </item>
+      <item path="DebugWnd.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="Find.cc">
+        <itemTool>1</itemTool>
+      </item>
+      <item path="Find.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="Input.cpp">
+        <itemTool>1</itemTool>
+      </item>
+      <item path="Input.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="Main.cc">
+        <itemTool>1</itemTool>
+      </item>
+      <item path="Main.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="MissingWindows.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="Plugins.cc">
+        <itemTool>1</itemTool>
+      </item>
+      <item path="Plugins.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="Utils.cc">
+        <itemTool>1</itemTool>
+      </item>
+      <item path="Utils.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="adler32.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="cbas_CodeEditor.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="crc32.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="crc32.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="deflate.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="deflate.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="dll.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="gzio.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="inffast.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="inffast.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="inffixed.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="inflate.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="inflate.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="inftrees.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="inftrees.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="jni.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="jni_md.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="trees.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="trees.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="zconf.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="zlib.h">
+        <itemTool>3</itemTool>
+      </item>
+      <item path="zutil.c">
+        <itemTool>0</itemTool>
+      </item>
+      <item path="zutil.h">
+        <itemTool>3</itemTool>
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>

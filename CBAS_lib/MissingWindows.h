@@ -1,0 +1,54 @@
+#ifndef MISSINGWINDOWS_H
+#define MISSINGWINDOWS_H
+
+#include <windows.h>
+
+#ifdef	__cplusplus
+extern "C" {
+#endif
+    
+    #define INPUT_MOUSE 0
+    #define INPUT_KEYBOARD 1
+    #define INPUT_HARDWARE 2
+ 
+    typedef struct tagHARDWAREINPUT {
+        DWORD uMsg;
+        WORD wParamL;
+        WORD wParamH;
+    } HARDWAREINPUT, *PHARDWAREINPUT;
+
+    typedef struct tagKEYBDINPUT {
+        WORD wVk;
+        WORD wScan;
+        DWORD dwFlags;
+        DWORD time;
+        ULONG_PTR dwExtraInfo;
+    } KEYBDINPUT, *PKEYBDINPUT;
+
+    typedef struct tagMOUSEINPUT {
+        LONG dx;
+        LONG dy;
+        DWORD mouseData;
+        DWORD dwFlags;
+        DWORD time;
+        ULONG_PTR dwExtraInfo;
+    } MOUSEINPUT, *PMOUSEINPUT;
+
+    typedef struct tagINPUT {
+        DWORD type;
+
+        union {
+            MOUSEINPUT mi;
+            KEYBDINPUT ki;
+            HARDWAREINPUT hi;
+        };
+    } INPUT, *PINPUT;
+
+    UINT SendInput(UINT nInputs, PINPUT pInputs, int cbSize) __attribute__((stdcall));
+
+#ifdef	__cplusplus
+}
+#endif
+
+#endif	/* MISSINGWINDOWS_H */
+
