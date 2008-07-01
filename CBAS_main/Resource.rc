@@ -1,4 +1,0 @@
-#include "Resource.h"
-
-CBAS_ICON   ICON    "CBAS.ico"
-
