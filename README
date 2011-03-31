@@ -1,0 +1,26 @@
+CBAS was created by BenLand100 a very long time ago. It is currently hosted
+on github at https://github.com/BenLand100/CBAS and is mostly unused, as it 
+was never properly distributed or pushed in the community it was designed 
+for.
+
+CBAS is supposed to be a simple IDE with a focus on developing programs that
+are distributed in source form only. The target area of development relates
+to automating tasks on the computer. As such, CBAS comes with a library of 
+useful keyboard/mouse control routines as well as a full compliment of color
+base searching functionality. The core library is written in C/++ and the GUI
+is written in Java. The idea behind this rather confusing setup was to make
+the GUI as flexible platform wise as possible while having a very fast core.
+In addition, the goal was to executed compiled programs rather than 
+interpreting source code, as was standard in the community CBAS was designed
+for. Since the GNU toolset is relatively universal, as is a Java runtime,
+those two languages were chosen. In addition, the more specific target for
+CBAS was automation of the game Runescape, so using Java would not have been
+any overhead at all. It's quite a nice system, if I do say so myself. It's 
+worth a look if you're interested in any of the mentioned topics, or using
+JNI in both directions. 
+
+To Build CBAS simply run the Makefile in the root directory. Currently CBAS
+only runs on Windows and requires the C and C++ compilers distributed with 
+MinGW.
+
+~Benjamin J. Land a.k.a. BenLand100
