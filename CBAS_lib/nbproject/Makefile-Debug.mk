@@ -1,5 +1,5 @@
 #
-# Gererated Makefile - do not edit!
+# Generated Makefile - do not edit!
 #
 # Edit the Makefile in the project folder instead (../Makefile). Each target
 # has a -pre and a -post target defined where you can add customized code.
@@ -12,16 +12,22 @@ MKDIR=mkdir
 CP=cp
 CCADMIN=CCadmin
 RANLIB=ranlib
-CC=gcc
-CCC=g++
-CXX=g++
+CC=i586-mingw32msvc-gcc
+CCC=i586-mingw32msvc-g++
+CXX=i586-mingw32msvc-g++
 FC=
+AS=i586-mingw32msvc-as
+
+# Macros
+CND_PLATFORM=MinGW-Linux-x86
+CND_CONF=Debug
+CND_DISTDIR=dist
 
 # Include project Makefile
 include Makefile
 
 # Object Directory
-OBJECTDIR=build/Debug/MinGW_Windows-Windows
+OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
@@ -54,95 +60,122 @@ CXXFLAGS=-DBUILD_DLL
 # Fortran Compiler Flags
 FFLAGS=
 
+# Assembler Flags
+ASFLAGS=
+
 # Link Libraries and Options
 LDLIBSOPTIONS=-lgdi32
 
 # Build Targets
-.build-conf: ${BUILD_SUBPROJECTS} dist/Debug/libcbas.dll
+.build-conf: ${BUILD_SUBPROJECTS}
+	${MAKE}  -f nbproject/Makefile-Debug.mk dist/Debug/libcbas.dll
 
 dist/Debug/libcbas.dll: ${OBJECTFILES}
 	${MKDIR} -p dist/Debug
 	${LINK.cc} -Wl,--add-stdcall-alias -shared -o dist/Debug/libcbas.dll -s -fPIC ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
-${OBJECTDIR}/Main.o: Main.cc 
+${OBJECTDIR}/Main.o: nbproject/Makefile-${CND_CONF}.mk Main.cc 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -O3 -s -fPIC  -o ${OBJECTDIR}/Main.o Main.cc
+	${RM} $@.d
+	$(COMPILE.cc) -O3 -s -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Main.o Main.cc
 
-${OBJECTDIR}/adler32.o: adler32.c 
+${OBJECTDIR}/adler32.o: nbproject/Makefile-${CND_CONF}.mk adler32.c 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.c) -O3 -s -fPIC  -o ${OBJECTDIR}/adler32.o adler32.c
+	${RM} $@.d
+	$(COMPILE.c) -O3 -s -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/adler32.o adler32.c
 
-${OBJECTDIR}/Find.o: Find.cc 
+${OBJECTDIR}/Find.o: nbproject/Makefile-${CND_CONF}.mk Find.cc 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -O3 -s -fPIC  -o ${OBJECTDIR}/Find.o Find.cc
+	${RM} $@.d
+	$(COMPILE.cc) -O3 -s -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Find.o Find.cc
 
-${OBJECTDIR}/Color.o: Color.cc 
+${OBJECTDIR}/Color.o: nbproject/Makefile-${CND_CONF}.mk Color.cc 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -O3 -s -fPIC  -o ${OBJECTDIR}/Color.o Color.cc
+	${RM} $@.d
+	$(COMPILE.cc) -O3 -s -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Color.o Color.cc
 
-${OBJECTDIR}/Utils.o: Utils.cc 
+${OBJECTDIR}/Utils.o: nbproject/Makefile-${CND_CONF}.mk Utils.cc 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -O3 -s -fPIC  -o ${OBJECTDIR}/Utils.o Utils.cc
+	${RM} $@.d
+	$(COMPILE.cc) -O3 -s -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Utils.o Utils.cc
 
-${OBJECTDIR}/DTM.o: DTM.cc 
+${OBJECTDIR}/DTM.o: nbproject/Makefile-${CND_CONF}.mk DTM.cc 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -O3 -s -fPIC  -o ${OBJECTDIR}/DTM.o DTM.cc
+	${RM} $@.d
+	$(COMPILE.cc) -O3 -s -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/DTM.o DTM.cc
 
-${OBJECTDIR}/Bitmap.o: Bitmap.cc 
+${OBJECTDIR}/Bitmap.o: nbproject/Makefile-${CND_CONF}.mk Bitmap.cc 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -O3 -s -fPIC  -o ${OBJECTDIR}/Bitmap.o Bitmap.cc
+	${RM} $@.d
+	$(COMPILE.cc) -O3 -s -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Bitmap.o Bitmap.cc
 
-${OBJECTDIR}/trees.o: trees.c 
+${OBJECTDIR}/trees.o: nbproject/Makefile-${CND_CONF}.mk trees.c 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.c) -O3 -s -fPIC  -o ${OBJECTDIR}/trees.o trees.c
+	${RM} $@.d
+	$(COMPILE.c) -O3 -s -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/trees.o trees.c
 
-${OBJECTDIR}/Input.o: Input.cpp 
+${OBJECTDIR}/Input.o: nbproject/Makefile-${CND_CONF}.mk Input.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -O3 -s -fPIC  -o ${OBJECTDIR}/Input.o Input.cpp
+	${RM} $@.d
+	$(COMPILE.cc) -O3 -s -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Input.o Input.cpp
 
-${OBJECTDIR}/deflate.o: deflate.c 
+${OBJECTDIR}/deflate.o: nbproject/Makefile-${CND_CONF}.mk deflate.c 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.c) -O3 -s -fPIC  -o ${OBJECTDIR}/deflate.o deflate.c
+	${RM} $@.d
+	$(COMPILE.c) -O3 -s -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/deflate.o deflate.c
 
-${OBJECTDIR}/zutil.o: zutil.c 
+${OBJECTDIR}/zutil.o: nbproject/Makefile-${CND_CONF}.mk zutil.c 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.c) -O3 -s -fPIC  -o ${OBJECTDIR}/zutil.o zutil.c
+	${RM} $@.d
+	$(COMPILE.c) -O3 -s -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/zutil.o zutil.c
 
-${OBJECTDIR}/DebugWnd.o: DebugWnd.cc 
+${OBJECTDIR}/DebugWnd.o: nbproject/Makefile-${CND_CONF}.mk DebugWnd.cc 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -O3 -s -fPIC  -o ${OBJECTDIR}/DebugWnd.o DebugWnd.cc
+	${RM} $@.d
+	$(COMPILE.cc) -O3 -s -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/DebugWnd.o DebugWnd.cc
 
-${OBJECTDIR}/gzio.o: gzio.c 
+${OBJECTDIR}/gzio.o: nbproject/Makefile-${CND_CONF}.mk gzio.c 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.c) -O3 -s -fPIC  -o ${OBJECTDIR}/gzio.o gzio.c
+	${RM} $@.d
+	$(COMPILE.c) -O3 -s -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/gzio.o gzio.c
 
-${OBJECTDIR}/crc32.o: crc32.c 
+${OBJECTDIR}/crc32.o: nbproject/Makefile-${CND_CONF}.mk crc32.c 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.c) -O3 -s -fPIC  -o ${OBJECTDIR}/crc32.o crc32.c
+	${RM} $@.d
+	$(COMPILE.c) -O3 -s -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/crc32.o crc32.c
 
-${OBJECTDIR}/Plugins.o: Plugins.cc 
+${OBJECTDIR}/Plugins.o: nbproject/Makefile-${CND_CONF}.mk Plugins.cc 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -O3 -s -fPIC  -o ${OBJECTDIR}/Plugins.o Plugins.cc
+	${RM} $@.d
+	$(COMPILE.cc) -O3 -s -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/Plugins.o Plugins.cc
 
-${OBJECTDIR}/inflate.o: inflate.c 
+${OBJECTDIR}/inflate.o: nbproject/Makefile-${CND_CONF}.mk inflate.c 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.c) -O3 -s -fPIC  -o ${OBJECTDIR}/inflate.o inflate.c
+	${RM} $@.d
+	$(COMPILE.c) -O3 -s -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/inflate.o inflate.c
 
-${OBJECTDIR}/inftrees.o: inftrees.c 
+${OBJECTDIR}/inftrees.o: nbproject/Makefile-${CND_CONF}.mk inftrees.c 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.c) -O3 -s -fPIC  -o ${OBJECTDIR}/inftrees.o inftrees.c
+	${RM} $@.d
+	$(COMPILE.c) -O3 -s -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/inftrees.o inftrees.c
 
-${OBJECTDIR}/inffast.o: inffast.c 
+${OBJECTDIR}/inffast.o: nbproject/Makefile-${CND_CONF}.mk inffast.c 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.c) -O3 -s -fPIC  -o ${OBJECTDIR}/inffast.o inffast.c
+	${RM} $@.d
+	$(COMPILE.c) -O3 -s -fPIC  -MMD -MP -MF $@.d -o ${OBJECTDIR}/inffast.o inffast.c
 
 # Subprojects
 .build-subprojects:
 
 # Clean Targets
-.clean-conf:
+.clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r build/Debug
 	${RM} dist/Debug/libcbas.dll
 
 # Subprojects
 .clean-subprojects:
+
+# Enable dependency checking
+.dep.inc: .depcheck-impl
+
+include .dep.inc

@@ -34,7 +34,7 @@ MKDIR=mkdir
 CP=cp
 CCADMIN=CCadmin
 RANLIB=ranlib
-WINDRES=/usr/local/cross-tools/bin/i386-mingw32-windres
+WINDRES=i586-mingw32msvc-windres
 
 # build
 build: .build-pre .build-impl .build-post

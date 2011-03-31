@@ -313,7 +313,8 @@ public class CodeEditor extends JFrame implements WindowListener, ChangeListener
                         out.println("Linking " + data.name);
                         File dll = new File(bin, data.name + ".dll");
                         Process link = Runtime.getRuntime().exec(comp.getAbsolutePath() + " -shared -o \"" + dll.getAbsolutePath() + "\" -s \"" + object.getAbsolutePath() + "\" \"" + script_object.getAbsolutePath() + "\" -L\"" + lib.getAbsolutePath() + "\"" + libs);
-                        int link_res = link.waitFor();
+                        System.out.println(link);
+                        int link_res =  1;//link.waitFor();
                         if (link_res == 0) {
                             out.println("Successfully Linked");
                         } else {

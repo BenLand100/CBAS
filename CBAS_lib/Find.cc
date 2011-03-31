@@ -491,13 +491,14 @@ bool Finder::findBitmap(int& x, int& y, Bitmap& bitmap, int sx, int sy, int ex, 
             if (winc->color == bpx->color && winc[scanlast].color == bpx[last].color) {
                 PRGB binc = bpx;
                 PRGB ihend = winc + bh * width + bw;
+                int i;
                 for (PRGB ihinc = winc; ihinc < ihend; ihinc += scan) {
                     PRGB iwend = ihinc + bw;
                     for (PRGB iwinc = ihinc; iwinc < iwend; iwinc++) {
                         if (iwinc->color != (binc++)->color) goto Skip;
                     }
                 }
-                int i = winc - target;
+                i = winc - target;
                 x = i % width;
                 y = i / width;
                 return true;
@@ -528,13 +529,14 @@ bool Finder::findBitmapTol(int& x, int& y, Bitmap& bitmap, int tol, int sx, int 
             if ((this->*Compare::cts)(*winc, *bpx, tol) && (this->*Compare::cts)(winc[scanlast],bpx[last],tol)) {
                 PRGB binc = bpx;
                 PRGB ihend = winc + bh * width + bw;
+                int i;
                 for (PRGB ihinc = winc; ihinc < ihend; ihinc += scan) {
                     PRGB iwend = ihinc + bw;
                     for (PRGB iwinc = ihinc; iwinc < iwend; iwinc++) {
                         if ((this->*Compare::cts)(*iwinc, *binc++, tol)) goto Skip;
                     }
                 }
-                int i = winc - target;
+                i = winc - target;
                 x = i % width;
                 y = i / width;
                 return true;

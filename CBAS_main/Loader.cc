@@ -22,18 +22,18 @@ void checkPath(char* path) {
 }
 
 HMODULE findLibrary() {
+    HMODULE jvmdll;
     HKEY jrekey;
     HKEY curjrekey;
-    HMODULE jvmdll;
     char value[512], path[512];
     unsigned long size;
     RegOpenKeyEx(HKEY_LOCAL_MACHINE, "SOFTWARE\\JavaSoft\\Java Runtime Environment", 0, KEY_QUERY_VALUE, &jrekey);
     size = 512;
     memset(value, 0, 512);
-    RegQueryValueEx(jrekey, "CurrentVersion", 0, 0, (unsigned char*) value, &size);
+    RegQueryValueEx(jrekey, "CurrentVersion", 0, 0, (unsigned char*)value, &size);
     RegOpenKeyEx(jrekey, value, 0, KEY_QUERY_VALUE, &curjrekey);
     size = 512;
-    RegQueryValueEx(curjrekey, "JavaHome", 0, 0, (unsigned char*) value, &size);
+    RegQueryValueEx(curjrekey, "JavaHome", 0, 0, (unsigned char*)value, &size);
     memset(path, 0, 512);
     sprintf(path, "%s\\bin", value);
     memset(path, 0, 512);
@@ -49,7 +49,6 @@ HMODULE findLibrary() {
 }
 
 int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, char* lpCmdLine, int nCmdShow) {
-    cout << "It is time.\n";
     jvmdll = findLibrary();
     if (!jvmdll) {
         MessageBox(0, "CBAS Failed to load, Java must not be installed", "CBAS", MB_OK);

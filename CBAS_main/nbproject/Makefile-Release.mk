@@ -1,5 +1,5 @@
 #
-# Gererated Makefile - do not edit!
+# Generated Makefile - do not edit!
 #
 # Edit the Makefile in the project folder instead (../Makefile). Each target
 # has a -pre and a -post target defined where you can add customized code.
@@ -12,16 +12,22 @@ MKDIR=mkdir
 CP=cp
 CCADMIN=CCadmin
 RANLIB=ranlib
-CC=gcc
-CCC=g++
-CXX=g++
+CC=i586-mingw32msvc-gcc
+CCC=i586-mingw32msvc-g++
+CXX=i586-mingw32msvc-g++
 FC=
+AS=i586-mingw32msvc-as
+
+# Macros
+CND_PLATFORM=MinGW-Linux-x86
+CND_CONF=Release
+CND_DISTDIR=dist
 
 # Include project Makefile
 include Makefile
 
 # Object Directory
-OBJECTDIR=build/Release/GNU-Windows
+OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
@@ -37,27 +43,37 @@ CXXFLAGS=
 # Fortran Compiler Flags
 FFLAGS=
 
+# Assembler Flags
+ASFLAGS=
+
 # Link Libraries and Options
 LDLIBSOPTIONS=
 
 # Build Targets
-.build-conf: ${BUILD_SUBPROJECTS} dist/Release/GNU-Windows/cbas_main.exe
+.build-conf: ${BUILD_SUBPROJECTS}
+	${MAKE}  -f nbproject/Makefile-Release.mk dist/Release/MinGW-Linux-x86/cbas_main
 
-dist/Release/GNU-Windows/cbas_main.exe: ${OBJECTFILES}
-	${MKDIR} -p dist/Release/GNU-Windows
-	${LINK.cc} -o dist/Release/GNU-Windows/cbas_main ${OBJECTFILES} ${LDLIBSOPTIONS} 
+dist/Release/MinGW-Linux-x86/cbas_main: ${OBJECTFILES}
+	${MKDIR} -p dist/Release/MinGW-Linux-x86
+	${LINK.cc} Resource.o -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cbas_main ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
-${OBJECTDIR}/Loader.o: Loader.cc 
+${OBJECTDIR}/Loader.o: nbproject/Makefile-${CND_CONF}.mk Loader.cc 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -O2 -o ${OBJECTDIR}/Loader.o Loader.cc
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/Loader.o Loader.cc
 
 # Subprojects
 .build-subprojects:
 
 # Clean Targets
-.clean-conf:
+.clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r build/Release
-	${RM} dist/Release/GNU-Windows/cbas_main.exe
+	${RM} dist/Release/MinGW-Linux-x86/cbas_main
 
 # Subprojects
 .clean-subprojects:
+
+# Enable dependency checking
+.dep.inc: .depcheck-impl
+
+include .dep.inc

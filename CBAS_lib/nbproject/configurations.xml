@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="45">
+<configurationDescriptor version="62">
   <logicalFolder name="root" displayName="root" projectFiles="true">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
@@ -7,8 +7,8 @@
       <logicalFolder name="f2" displayName="core" projectFiles="true">
         <itemPath>Bitmap.h</itemPath>
         <itemPath>Color.h</itemPath>
-        <itemPath>DebugWnd.h</itemPath>
         <itemPath>DTM.h</itemPath>
+        <itemPath>DebugWnd.h</itemPath>
         <itemPath>Find.h</itemPath>
         <itemPath>Input.h</itemPath>
         <itemPath>Plugins.h</itemPath>
@@ -26,12 +26,12 @@
         <itemPath>zlib.h</itemPath>
         <itemPath>zutil.h</itemPath>
       </logicalFolder>
+      <itemPath>Main.h</itemPath>
+      <itemPath>MissingWindows.h</itemPath>
       <itemPath>cbas_CodeEditor.h</itemPath>
       <itemPath>dll.h</itemPath>
       <itemPath>jni.h</itemPath>
       <itemPath>jni_md.h</itemPath>
-      <itemPath>Main.h</itemPath>
-      <itemPath>MissingWindows.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -43,8 +43,8 @@
       <logicalFolder name="f2" displayName="core" projectFiles="true">
         <itemPath>Bitmap.cc</itemPath>
         <itemPath>Color.cc</itemPath>
-        <itemPath>DebugWnd.cc</itemPath>
         <itemPath>DTM.cc</itemPath>
+        <itemPath>DebugWnd.cc</itemPath>
         <itemPath>Find.cc</itemPath>
         <itemPath>Input.cpp</itemPath>
         <itemPath>Plugins.cc</itemPath>
@@ -69,25 +69,25 @@
       <itemPath>Makefile</itemPath>
     </logicalFolder>
   </logicalFolder>
-  <sourceEncoding>UTF-8</sourceEncoding>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="Debug" type="2">
       <toolsSet>
-        <compilerSet>MinGW_Windows|MinGW</compilerSet>
-        <platform>3</platform>
+        <developmentServer>localhost</developmentServer>
+        <compilerSet>MinGW|GNU</compilerSet>
+        <platform>2</platform>
       </toolsSet>
       <compileType>
-        <cCompilerTool>
+        <cTool>
           <developmentMode>6</developmentMode>
           <stripSymbols>true</stripSymbols>
           <commandLine>-DBUILD_DLL</commandLine>
-        </cCompilerTool>
-        <ccCompilerTool>
+        </cTool>
+        <ccTool>
           <developmentMode>6</developmentMode>
           <stripSymbols>true</stripSymbols>
           <commandLine>-DBUILD_DLL</commandLine>
-        </ccCompilerTool>
+        </ccTool>
         <fortranCompilerTool>
           <developmentMode>6</developmentMode>
         </fortranCompilerTool>
@@ -100,145 +100,20 @@
           <commandLine>-Wl,--add-stdcall-alias</commandLine>
         </linkerTool>
       </compileType>
-      <item path="Bitmap.cc">
-        <itemTool>1</itemTool>
-      </item>
-      <item path="Bitmap.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="Color.cc">
-        <itemTool>1</itemTool>
-      </item>
-      <item path="Color.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="DTM.cc">
-        <itemTool>1</itemTool>
-      </item>
-      <item path="DTM.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="DebugWnd.cc">
-        <itemTool>1</itemTool>
-      </item>
-      <item path="DebugWnd.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="Find.cc">
-        <itemTool>1</itemTool>
-      </item>
-      <item path="Find.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="Input.cpp">
-        <itemTool>1</itemTool>
-      </item>
-      <item path="Input.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="Main.cc">
-        <itemTool>1</itemTool>
-      </item>
-      <item path="Main.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="MissingWindows.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="Plugins.cc">
-        <itemTool>1</itemTool>
-      </item>
-      <item path="Plugins.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="Utils.cc">
-        <itemTool>1</itemTool>
-      </item>
-      <item path="Utils.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="adler32.c">
-        <itemTool>0</itemTool>
-      </item>
-      <item path="cbas_CodeEditor.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="crc32.c">
-        <itemTool>0</itemTool>
-      </item>
-      <item path="crc32.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="deflate.c">
-        <itemTool>0</itemTool>
-      </item>
-      <item path="deflate.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="dll.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="gzio.c">
-        <itemTool>0</itemTool>
-      </item>
-      <item path="inffast.c">
-        <itemTool>0</itemTool>
-      </item>
-      <item path="inffast.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="inffixed.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="inflate.c">
-        <itemTool>0</itemTool>
-      </item>
-      <item path="inflate.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="inftrees.c">
-        <itemTool>0</itemTool>
-      </item>
-      <item path="inftrees.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="jni.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="jni_md.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="trees.c">
-        <itemTool>0</itemTool>
-      </item>
-      <item path="trees.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="zconf.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="zlib.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="zutil.c">
-        <itemTool>0</itemTool>
-      </item>
-      <item path="zutil.h">
-        <itemTool>3</itemTool>
-      </item>
     </conf>
     <conf name="Release" type="2">
       <toolsSet>
+        <developmentServer>localhost</developmentServer>
         <compilerSet>MinGW|MinGW</compilerSet>
-        <platform>3</platform>
+        <platform>2</platform>
       </toolsSet>
       <compileType>
-        <cCompilerTool>
+        <cTool>
           <developmentMode>5</developmentMode>
-        </cCompilerTool>
-        <ccCompilerTool>
+        </cTool>
+        <ccTool>
           <developmentMode>5</developmentMode>
-        </ccCompilerTool>
+        </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
         </fortranCompilerTool>
@@ -247,132 +122,6 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="Bitmap.cc">
-        <itemTool>1</itemTool>
-      </item>
-      <item path="Bitmap.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="Color.cc">
-        <itemTool>1</itemTool>
-      </item>
-      <item path="Color.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="DTM.cc">
-        <itemTool>1</itemTool>
-      </item>
-      <item path="DTM.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="DebugWnd.cc">
-        <itemTool>1</itemTool>
-      </item>
-      <item path="DebugWnd.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="Find.cc">
-        <itemTool>1</itemTool>
-      </item>
-      <item path="Find.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="Input.cpp">
-        <itemTool>1</itemTool>
-      </item>
-      <item path="Input.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="Main.cc">
-        <itemTool>1</itemTool>
-      </item>
-      <item path="Main.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="MissingWindows.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="Plugins.cc">
-        <itemTool>1</itemTool>
-      </item>
-      <item path="Plugins.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="Utils.cc">
-        <itemTool>1</itemTool>
-      </item>
-      <item path="Utils.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="adler32.c">
-        <itemTool>0</itemTool>
-      </item>
-      <item path="cbas_CodeEditor.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="crc32.c">
-        <itemTool>0</itemTool>
-      </item>
-      <item path="crc32.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="deflate.c">
-        <itemTool>0</itemTool>
-      </item>
-      <item path="deflate.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="dll.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="gzio.c">
-        <itemTool>0</itemTool>
-      </item>
-      <item path="inffast.c">
-        <itemTool>0</itemTool>
-      </item>
-      <item path="inffast.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="inffixed.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="inflate.c">
-        <itemTool>0</itemTool>
-      </item>
-      <item path="inflate.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="inftrees.c">
-        <itemTool>0</itemTool>
-      </item>
-      <item path="inftrees.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="jni.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="jni_md.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="trees.c">
-        <itemTool>0</itemTool>
-      </item>
-      <item path="trees.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="zconf.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="zlib.h">
-        <itemTool>3</itemTool>
-      </item>
-      <item path="zutil.c">
-        <itemTool>0</itemTool>
-      </item>
-      <item path="zutil.h">
-        <itemTool>3</itemTool>
-      </item>
     </conf>
   </confs>
 </configurationDescriptor>

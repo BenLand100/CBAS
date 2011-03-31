@@ -189,6 +189,7 @@ extern "C" JNIEXPORT jint JNIEXPORT Java_cbas_CodeEditor_implRun(JNIEnv *env, jo
         env->CallVoidMethod(threads, map_put, jname, integer);
         env->DeleteLocalRef(integer);
         env->DeleteLocalRef(threads);
+        cout << "run, run, run\n";
     }
 Die:
     env->DeleteLocalRef(threads);
