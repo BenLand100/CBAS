@@ -94,7 +94,6 @@
         <linkerTool>
           <output>dist/Debug/libcbas.dll</output>
           <stripSymbols>true</stripSymbols>
-          <linkerKpic>false</linkerKpic>
           <linkerLibItems>
             <linkerLibLibItem>gdi32</linkerLibLibItem>
           </linkerLibItems>

@@ -85,7 +85,7 @@ public class CodeDocument extends DefaultStyledDocument implements CaretListener
         elemRegexes.put(Pattern.compile("#" + regNAME),DIRECTIVE);
         elemRegexes.put(Pattern.compile(regKEYWORDS), RESERVED);
         elemRegexes.put(Pattern.compile(regTYPES), TYPES);
-        elemRegexes.put(Pattern.compile("\\<[^\\>]*\\>"),GENERIC);
+        elemRegexes.put(Pattern.compile("\\<[^\\>\n\\<]*\\>"),GENERIC);
         elemRegexes.put(Pattern.compile(regSTRING),STRING);
         elemRegexes.put(Pattern.compile(regCHAR),CHAR);
         elemRegexes.put(Pattern.compile(redCOMMENT),COMMENT);

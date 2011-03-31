@@ -1,5 +1,5 @@
 #CBAS User Settings
-#Tue Jul 01 15:31:15 EDT 2008
+#Sat Jul 05 20:56:35 EDT 2008
 grouper=b2
 compiler=C\:/MinGW/bin/mingw32-g++.exe
 char=ff6400
@@ -7,8 +7,8 @@ operator=ff0000
 reserved=ff
 float=b2
 integer=b2
-string=ff6400
 comment=808080
+string=ff6400
 types=ff
 directive=b200
 generic=ff6400

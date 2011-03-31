@@ -17,6 +17,18 @@ void updateHWND(Finder* find, int sx, int sy, int ex, int ey) {
     BitBlt(find->bmp->getDC(), sx, sy, ex - sx + 1, ey - sy + 1, find->dc, sx, sy, SRCCOPY);
 }
 
+void updateScreen(Finder* find, int sx, int sy, int ex, int ey) {
+    BitBlt(find->bmp->getDC(), sx, sy, ex - sx + 1, ey - sy + 1, find->dc, sx, sy, SRCCOPY);
+}
+
+Finder::Finder() {
+    hwnd = 0;
+    update = &updateScreen;
+    dc = GetDC(0);
+    bmp = new Bitmap(GetDeviceCaps(dc,HORZRES),GetDeviceCaps(dc,VERTRES));
+    update(this, 0, 0, width-1, height-1);
+}
+
 Finder::Finder(Bitmap* target) {
     this->target = target->getPixels();
     target->getSize(width, height);
@@ -49,9 +61,8 @@ Finder::~Finder() {
 }
 
 RGB Finder::getColor(int x, int y) {
-    if (hwnd) {
-        RGB res;
-        res.color = GetPixel(dc, x, y);
+    if (dc) {
+        RGB res = {GetPixel(dc, x, y)};
         return res;
     }
     return target[x+y*width];

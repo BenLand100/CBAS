@@ -10,17 +10,15 @@ JNIEnv* env;
 
 HMODULE jvmdll;
 
-void checkPath(char* javaBin) {
-    HMODULE java = LoadLibrary("java.exe");
-    if (!java) {
-        char* path = getenv("PATH");
-        if (!strstr(path, javaBin)) {
-            char* newPath = (char*) malloc(strlen(path) + strlen(javaBin) + 2);
-            sprintf(newPath, "PATH=%s;%s", path, javaBin);
-            putenv(newPath);
-        }
+void checkPath(char* path) {
+    char* pathenv = getenv("PATH");
+    if (!strstr(pathenv, path)) {
+        char* newPath = (char*) malloc(strlen(pathenv) + strlen(path) + 2);
+        sprintf(newPath, "PATH=%s;%s", pathenv, path);
+        putenv(newPath);
+        free(newPath);
     }
-    FreeLibrary(java);
+    free(pathenv);
 }
 
 HMODULE findLibrary() {
@@ -38,7 +36,6 @@ HMODULE findLibrary() {
     RegQueryValueEx(curjrekey, "JavaHome", 0, 0, (unsigned char*) value, &size);
     memset(path, 0, 512);
     sprintf(path, "%s\\bin", value);
-    checkPath(path);
     memset(path, 0, 512);
     sprintf(path, "%s\\bin\\server\\jvm.dll", value);
     if (!(jvmdll = LoadLibrary(path))) {
@@ -58,20 +55,23 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, char* lpCmdLine, int n
         MessageBox(0, "CBAS Failed to load, Java must not be installed", "CBAS", MB_OK);
         return 1;
     }
-    
     JavaVMInitArgs args;
-    JavaVMOption options[2];
+    JavaVMOption options[3];
     char dir[MAX_PATH];
     GetCurrentDirectory(MAX_PATH,dir);
+    char libpath[MAX_PATH];
+    sprintf(libpath,"%s\\%s",dir,"Lib");
+    checkPath(libpath);
     char classpath[MAX_PATH];
     sprintf(classpath,"%s\\%s",dir,"ClassPath");
     char path[MAX_PATH];
-    sprintf(path,"-Xbootclasspath/a:%s",classpath);
+    sprintf(path,"-Xbootclasspath/p:%s",classpath);
     cout << "ClassPath: " << path << "\n";
-    args.version = JNI_VERSION_1_4;
-    args.nOptions = 2;
+    args.version = JNI_VERSION_1_6;
+    args.nOptions = 3;
     options[0].optionString = path;
     options[1].optionString = "-Dsun.java2d.noddraw";
+    options[2].optionString = "-Xcheck:jni";
     args.options = options;
     args.ignoreUnrecognized = JNI_FALSE;
 

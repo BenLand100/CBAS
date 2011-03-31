@@ -62,79 +62,79 @@ LDLIBSOPTIONS=-lgdi32
 
 dist/Debug/libcbas.dll: ${OBJECTFILES}
 	${MKDIR} -p dist/Debug
-	${LINK.cc} -Wl,--add-stdcall-alias -shared -o dist/Debug/libcbas.dll -s ${OBJECTFILES} ${LDLIBSOPTIONS} 
+	${LINK.cc} -Wl,--add-stdcall-alias -shared -o dist/Debug/libcbas.dll -s -fPIC ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/Main.o: Main.cc 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -O3 -s -o ${OBJECTDIR}/Main.o Main.cc
+	$(COMPILE.cc) -O3 -s -fPIC  -o ${OBJECTDIR}/Main.o Main.cc
 
 ${OBJECTDIR}/adler32.o: adler32.c 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.c) -O3 -s -o ${OBJECTDIR}/adler32.o adler32.c
+	$(COMPILE.c) -O3 -s -fPIC  -o ${OBJECTDIR}/adler32.o adler32.c
 
 ${OBJECTDIR}/Find.o: Find.cc 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -O3 -s -o ${OBJECTDIR}/Find.o Find.cc
+	$(COMPILE.cc) -O3 -s -fPIC  -o ${OBJECTDIR}/Find.o Find.cc
 
 ${OBJECTDIR}/Color.o: Color.cc 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -O3 -s -o ${OBJECTDIR}/Color.o Color.cc
+	$(COMPILE.cc) -O3 -s -fPIC  -o ${OBJECTDIR}/Color.o Color.cc
 
 ${OBJECTDIR}/Utils.o: Utils.cc 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -O3 -s -o ${OBJECTDIR}/Utils.o Utils.cc
+	$(COMPILE.cc) -O3 -s -fPIC  -o ${OBJECTDIR}/Utils.o Utils.cc
 
 ${OBJECTDIR}/DTM.o: DTM.cc 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -O3 -s -o ${OBJECTDIR}/DTM.o DTM.cc
+	$(COMPILE.cc) -O3 -s -fPIC  -o ${OBJECTDIR}/DTM.o DTM.cc
 
 ${OBJECTDIR}/Bitmap.o: Bitmap.cc 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -O3 -s -o ${OBJECTDIR}/Bitmap.o Bitmap.cc
+	$(COMPILE.cc) -O3 -s -fPIC  -o ${OBJECTDIR}/Bitmap.o Bitmap.cc
 
 ${OBJECTDIR}/trees.o: trees.c 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.c) -O3 -s -o ${OBJECTDIR}/trees.o trees.c
+	$(COMPILE.c) -O3 -s -fPIC  -o ${OBJECTDIR}/trees.o trees.c
 
 ${OBJECTDIR}/Input.o: Input.cpp 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -O3 -s -o ${OBJECTDIR}/Input.o Input.cpp
+	$(COMPILE.cc) -O3 -s -fPIC  -o ${OBJECTDIR}/Input.o Input.cpp
 
 ${OBJECTDIR}/deflate.o: deflate.c 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.c) -O3 -s -o ${OBJECTDIR}/deflate.o deflate.c
+	$(COMPILE.c) -O3 -s -fPIC  -o ${OBJECTDIR}/deflate.o deflate.c
 
 ${OBJECTDIR}/zutil.o: zutil.c 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.c) -O3 -s -o ${OBJECTDIR}/zutil.o zutil.c
+	$(COMPILE.c) -O3 -s -fPIC  -o ${OBJECTDIR}/zutil.o zutil.c
 
 ${OBJECTDIR}/DebugWnd.o: DebugWnd.cc 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -O3 -s -o ${OBJECTDIR}/DebugWnd.o DebugWnd.cc
+	$(COMPILE.cc) -O3 -s -fPIC  -o ${OBJECTDIR}/DebugWnd.o DebugWnd.cc
 
 ${OBJECTDIR}/gzio.o: gzio.c 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.c) -O3 -s -o ${OBJECTDIR}/gzio.o gzio.c
+	$(COMPILE.c) -O3 -s -fPIC  -o ${OBJECTDIR}/gzio.o gzio.c
 
 ${OBJECTDIR}/crc32.o: crc32.c 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.c) -O3 -s -o ${OBJECTDIR}/crc32.o crc32.c
+	$(COMPILE.c) -O3 -s -fPIC  -o ${OBJECTDIR}/crc32.o crc32.c
 
 ${OBJECTDIR}/Plugins.o: Plugins.cc 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.cc) -O3 -s -o ${OBJECTDIR}/Plugins.o Plugins.cc
+	$(COMPILE.cc) -O3 -s -fPIC  -o ${OBJECTDIR}/Plugins.o Plugins.cc
 
 ${OBJECTDIR}/inflate.o: inflate.c 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.c) -O3 -s -o ${OBJECTDIR}/inflate.o inflate.c
+	$(COMPILE.c) -O3 -s -fPIC  -o ${OBJECTDIR}/inflate.o inflate.c
 
 ${OBJECTDIR}/inftrees.o: inftrees.c 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.c) -O3 -s -o ${OBJECTDIR}/inftrees.o inftrees.c
+	$(COMPILE.c) -O3 -s -fPIC  -o ${OBJECTDIR}/inftrees.o inftrees.c
 
 ${OBJECTDIR}/inffast.o: inffast.c 
 	${MKDIR} -p ${OBJECTDIR}
-	$(COMPILE.c) -O3 -s -o ${OBJECTDIR}/inffast.o inffast.c
+	$(COMPILE.c) -O3 -s -fPIC  -o ${OBJECTDIR}/inffast.o inffast.c
 
 # Subprojects
 .build-subprojects:

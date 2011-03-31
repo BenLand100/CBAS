@@ -22,6 +22,11 @@ int scriptmain();
 
 unsigned long _impl_scriptmain(void *info) {
 	staticInfo = (StaticInfo*)info;
-	return scriptmain();
+	JNIEnv* env;
+	staticInfo->vm->AttachCurrentThreadAsDaemon((void**)&env, 0);
+	jout.rdbuf(staticInfo->joutbuf);
+	int res = scriptmain();
+	return res;
+    staticInfo->vm->DetachCurrentThread();
 }
 

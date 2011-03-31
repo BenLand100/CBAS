@@ -453,6 +453,7 @@ public class CodeEditor extends JFrame implements WindowListener, ChangeListener
     private void newTab() {
         TabData tab = new TabData();
         tab.codeArea = new CodeArea();
+        tab.codeArea.setFont(new Font("Monospaced", Font.PLAIN, 14));
         tab.codeArea.setText("int scriptmain() {\n    return 0;\n}");
         tab.name = "Untitled";
         tab.compile = true;
@@ -500,6 +501,7 @@ public class CodeEditor extends JFrame implements WindowListener, ChangeListener
                 }
                 TabData tab = new TabData();
                 tab.codeArea = new CodeArea();
+                tab.codeArea.setFont(new Font("Monospaced", Font.PLAIN, 14));
                 tab.codeArea.setText(new String(out.toByteArray()));
                 int period = lastFile.getName().lastIndexOf('.');
                 tab.name = period != -1 ? lastFile.getName().substring(0, period) : lastFile.getName();
@@ -643,9 +645,9 @@ public class CodeEditor extends JFrame implements WindowListener, ChangeListener
         file.add(new JMenuItem(new MethodAction("Save", this, "save", false)));
         file.add(new JMenuItem(new MethodAction("Save As", this, "save", true)));
         file.add(new JSeparator());
-        file.add(new JMenuItem(new MethodAction("Exit", this, "exit")));
         close = new JMenuItem(new MethodAction("Close", this, "close"));
         file.add(close);
+        file.add(new JMenuItem(new MethodAction("Exit", this, "exit")));
         menu.add(file);
         JMenu edit = new JMenu("Edit");
         edit.add(new JMenuItem(new MethodAction("Undo", this, "undo")));

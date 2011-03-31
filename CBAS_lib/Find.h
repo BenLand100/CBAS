@@ -14,8 +14,10 @@ typedef struct {
 
 class Finder: public Compare {
     friend void updateHWND(Finder*, int sx, int sy, int ex, int ey);
+    friend void updateScreen(Finder*, int sx, int sy, int ex, int ey);
     
 public:
+    EXPORT Finder(); //Whole screen as target
     EXPORT Finder(Bitmap* target);
     EXPORT Finder(HWND target);
     EXPORT Finder(PRGB target, int width, int height);

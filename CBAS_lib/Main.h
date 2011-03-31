@@ -8,7 +8,17 @@
 
 #define CREATE_WINDOW   1000
 #define ATTACH_JVM      1001
-#define PRINT_LN        1002
+
+class JavaOut : public std::streambuf {
+private:
+    jobject out;
+    jmethodID print;
+public:
+    JavaOut(jobject pthis);
+    ~JavaOut();
+protected:
+    int overflow(int c);
+};
 
 typedef struct {
     JavaVM* vm;
@@ -16,8 +26,10 @@ typedef struct {
     HANDLE messageLoopHandle;
     unsigned long messageLoopID;
     bool active;
+    JavaOut* joutbuf;
 } StaticInfo;
 
+EXPORT extern std::ostream jout;
 EXPORT extern StaticInfo *staticInfo;
 
 long exceptionFilter(EXCEPTION_POINTERS* info) __attribute__((stdcall));
@@ -25,8 +37,6 @@ long exceptionFilter(EXCEPTION_POINTERS* info) __attribute__((stdcall));
 long GlobalProc(HWND hwnd, unsigned int Message, unsigned int wParam, long lParam) __attribute__((stdcall));
 unsigned long messageLoop(void* threadData) __attribute__((stdcall));
 unsigned long launchMonitor(void* threadData) __attribute__((stdcall));
-
-EXPORT void println(char* str);
 
 typedef struct {
     long dwExStyle; 

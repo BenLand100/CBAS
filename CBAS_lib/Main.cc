@@ -18,6 +18,8 @@ using namespace std;
 
 bool init = false;
 
+JavaOut* joutbuf;
+ostream jout(new stringbuf(ios_base::out));
 StaticInfo *staticInfo;
 int loadCount = 0;
 
@@ -35,23 +37,69 @@ jmethodID integer_intValue;
 jmethodID integer_new;
 
 long exceptionFilter(EXCEPTION_POINTERS* info) {
-    ostringstream stream;
-    switch (info->ExceptionRecord->ExceptionCode) { 
-        case EXCEPTION_ACCESS_VIOLATION: 
-            stream << "Access Violation";
+    switch (info->ExceptionRecord->ExceptionCode) {
+        case EXCEPTION_ACCESS_VIOLATION:
+            jout << "Exception Access Violation ";
             break;
-        case EXCEPTION_FLT_DIVIDE_BY_ZERO: 
+        case EXCEPTION_FLT_DIVIDE_BY_ZERO:
         case EXCEPTION_INT_DIVIDE_BY_ZERO:
-            stream << "Divide by Zero";
+            jout << "Exception Divide by Zero ";
             break;
         default:
-            stream << "Exception " << info->ExceptionRecord->ExceptionCode;
+            jout << "Exception " << info->ExceptionRecord->ExceptionCode << " ";
     }
-    stream << " caught";
-    println((char*)stream.str().c_str());
-    return EXCEPTION_EXECUTE_HANDLER;
+    jout.setf(ios::hex, ios_base::basefield);
+    jout.unsetf(ios::showbase);
+    jout << "raised at " << info->ExceptionRecord->ExceptionAddress << "\n";
+    jout.setf(ios::dec, ios_base::basefield);
+    TerminateThread(GetCurrentThread(), 1337);
+    return EXCEPTION_CONTINUE_EXECUTION;
 }
 
+JavaOut::JavaOut(jobject pthis) {
+    JNIEnv *env;
+    staticInfo->vm->GetEnv((void**) & env, JNI_VERSION_1_6);
+    jclass CodeEditor = env->GetObjectClass(pthis);
+    jfieldID outID = env->GetFieldID(CodeEditor, "out", "Ljava/io/PrintStream;");
+    out = env->NewGlobalRef(env->GetObjectField(pthis, outID));
+    env->DeleteLocalRef(CodeEditor);
+    jclass PrintStream = env->FindClass("java/io/PrintStream");
+    print = env->GetMethodID(PrintStream, "print", "(Ljava/lang/String;)V");
+    env->DeleteLocalRef(PrintStream);
+}
+
+JavaOut::~JavaOut() {
+    JNIEnv *env;
+    staticInfo->vm->GetEnv((void**) & env, JNI_VERSION_1_6);
+    env->DeleteGlobalRef(out);
+}
+
+int JavaOut::overflow(int c) {
+    JNIEnv *env;
+    staticInfo->vm->GetEnv((void**) & env, JNI_VERSION_1_6);
+    if (pbase() != pptr()) {
+        char_type * endPtr = pptr();
+        char_type endChar = * endPtr;
+        *endPtr = '\0';
+        jstring str = env->NewStringUTF((char*) pbase());
+        env->CallVoidMethod(out, print, str);
+        env->DeleteLocalRef(str);
+        *endPtr = endChar;
+        setp(pbase(), epptr());
+    }
+    if (c != EOF) {
+        if (pbase() == epptr()) {
+            char t[2];
+            t[0] = c;
+            t[1] = 0;
+            jstring str = env->NewStringUTF(t);
+            env->CallVoidMethod(out, print, str);
+            env->DeleteLocalRef(str);
+        } else
+            sputc(c);
+    }
+    return 0;
+}
 
 extern "C" JNIEXPORT void JNICALL Java_cbas_CodeEditor_implNativeInit(JNIEnv *env, jobject pthis) {
     if (!init) {
@@ -66,7 +114,9 @@ extern "C" JNIEXPORT void JNICALL Java_cbas_CodeEditor_implNativeInit(JNIEnv *en
     }
     loadCount++;
     env->GetJavaVM(&staticInfo->vm);
-    SendMessage(staticInfo->messageGlobalHWND, WM_COMMAND, ATTACH_JVM, (long)pthis);
+    joutbuf = new JavaOut(pthis);
+    staticInfo->joutbuf = joutbuf;
+    delete jout.rdbuf(joutbuf);
     jclass Map = env->FindClass("java/util/Map");
     map_contains = env->GetMethodID(Map, "containsKey", "(Ljava/lang/Object;)Z");
     map_get = env->GetMethodID(Map, "get", "(Ljava/lang/Object;)Ljava/lang/Object;");
@@ -102,9 +152,9 @@ extern "C" JNIEXPORT void JNIEXPORT Java_cbas_CodeEditor_implStop(JNIEnv *env, j
 }
 
 extern "C" JNIEXPORT void JNIEXPORT Java_cbas_CodeEditor_implReleaseLib(JNIEnv *env, jobject pthis, jstring path) {
-    const char* chars = env->GetStringUTFChars(path,0);
+    const char* chars = env->GetStringUTFChars(path, 0);
     string str(chars);
-    env->ReleaseStringUTFChars(path,chars);
+    env->ReleaseStringUTFChars(path, chars);
     FreeLibrary(libs[str]);
     libs[str] = 0;
 }
@@ -121,7 +171,7 @@ extern "C" JNIEXPORT jint JNIEXPORT Java_cbas_CodeEditor_implRun(JNIEnv *env, jo
         const char* chars = env->GetStringUTFChars(jname, 0);
         string name((char*) chars);
         char path[MAX_PATH];
-        strcpy(path,chars);
+        strcpy(path, chars);
         env->ReleaseStringUTFChars(jname, chars);
         HINSTANCE h = libs[name];
         if (libs[name] == 0) {
@@ -136,7 +186,7 @@ extern "C" JNIEXPORT jint JNIEXPORT Java_cbas_CodeEditor_implRun(JNIEnv *env, jo
         jint handle = (jint) CreateThread(0, 0, _impl_scriptmain, (void*) staticInfo, 0, 0);
         jobject integer = env->NewObject(Integer, integer_new, handle);
         jobject threads = env->GetObjectField(pthis, threadsID);
-        env->CallVoidMethod(threads,map_put,jname,integer);
+        env->CallVoidMethod(threads, map_put, jname, integer);
         env->DeleteLocalRef(integer);
         env->DeleteLocalRef(threads);
     }
@@ -156,17 +206,9 @@ extern "C" JNIEXPORT void JNIEXPORT Java_cbas_CodeEditor_implExit(JNIEnv *env, j
     if (loadCount > 0) loadCount--;
 }
 
-void println(char* str) {
-    SendMessage(staticInfo->messageGlobalHWND, WM_COMMAND, PRINT_LN, (long) str);
-}
-
 long GlobalProc(HWND hwnd, unsigned int Message, unsigned int wParam, long lParam) {
-    static JNIEnv* env = 0;
-    static jobject out = 0;
-    static jmethodID println = 0;
     switch (Message) {
         case WM_CLOSE:
-            if (env) staticInfo->vm->DetachCurrentThread();
             DestroyWindow(hwnd);
             PostQuitMessage(0);
             staticInfo->active = false;
@@ -176,25 +218,6 @@ long GlobalProc(HWND hwnd, unsigned int Message, unsigned int wParam, long lPara
                 case CREATE_WINDOW:
                     CreateWindowData* data = reinterpret_cast<CreateWindowData*> (lParam);
                     *data->hwndRef = CreateWindowEx(data->dwStyle, data->lpClassName, data->lpWindowName, data->dwStyle, data->x, data->y, data->nWidth, data->nHeight, data->hWndParent, data->hMenu, data->hInstance, data->lpParam);
-                    break;
-                case ATTACH_JVM:
-                    if (env) staticInfo->vm->DetachCurrentThread();
-                    staticInfo->vm->AttachCurrentThread((void**) & env, 0);
-                    jobject pthis = (jobject)lParam;
-                    jclass CodeEditor = env->GetObjectClass(pthis);
-                    jfieldID outID = env->GetFieldID(CodeEditor, "out", "Ljava/io/PrintStream;");
-                    out = env->GetObjectField(pthis, outID);
-                    env->DeleteLocalRef(CodeEditor);
-                    jclass PrintStream = env->FindClass("java/io/PrintStream");
-                    println = env->GetMethodID(PrintStream, "println", "(Ljava/lang/String;)V");
-                    env->DeleteLocalRef(PrintStream);
-                    break;
-                case PRINT_LN:
-                    if (env) {
-                        jstring str = env->NewStringUTF((char*) lParam);
-                        env->CallVoidMethod(out, println, str);
-                        env->DeleteLocalRef(str);
-                    }
                     break;
             }
     }
@@ -211,30 +234,30 @@ unsigned long launchMonitor(void* threadData) {
     jmethodID finished = env->GetMethodID(CodeEditor, "finished", "(Ljava/lang/String;I)V");
     env->DeleteLocalRef(CodeEditor);
     jclass Map = env->FindClass("java/util/Map");
-    jmethodID keySet = env->GetMethodID(Map,"keySet","()Ljava/util/Set;");
+    jmethodID keySet = env->GetMethodID(Map, "keySet", "()Ljava/util/Set;");
     env->DeleteLocalRef(Map);
     jclass Set = env->FindClass("java/util/Set");
-    jmethodID iterator = env->GetMethodID(Set,"iterator","()Ljava/util/Iterator;");
+    jmethodID iterator = env->GetMethodID(Set, "iterator", "()Ljava/util/Iterator;");
     env->DeleteLocalRef(Set);
     jclass Iterator = env->FindClass("java/util/Iterator");
-    jmethodID next = env->GetMethodID(Iterator,"next","()Ljava/lang/Object;");
-    jmethodID hasNext = env->GetMethodID(Iterator,"hasNext","()Z");
+    jmethodID next = env->GetMethodID(Iterator, "next", "()Ljava/lang/Object;");
+    jmethodID hasNext = env->GetMethodID(Iterator, "hasNext", "()Z");
     env->DeleteLocalRef(Iterator);
     jobject threads = env->NewGlobalRef(env->GetObjectField(pthis, threadsID));
     while (env->GetBooleanField(pthis, living)) {
-        jobject set = env->CallObjectMethod(threads,keySet);
-        jobject iter = env->CallObjectMethod(set,iterator);
-        while (env->CallBooleanMethod(iter,hasNext)) {
-            jstring path = (jstring)env->CallObjectMethod(iter,next);
-            jobject integer = env->CallObjectMethod(threads,map_get,path);
-            HANDLE thread = (HANDLE) env->CallIntMethod(integer,integer_intValue);
+        jobject set = env->CallObjectMethod(threads, keySet);
+        jobject iter = env->CallObjectMethod(set, iterator);
+        while (env->CallBooleanMethod(iter, hasNext)) {
+            jstring path = (jstring) env->CallObjectMethod(iter, next);
+            jobject integer = env->CallObjectMethod(threads, map_get, path);
+            HANDLE thread = (HANDLE) env->CallIntMethod(integer, integer_intValue);
             env->DeleteLocalRef(integer);
             unsigned long res;
             GetExitCodeThread(thread, &res);
             if (res != STILL_ACTIVE) {
                 CloseHandle(thread);
-                env->CallVoidMethod(pthis,finished,path,(jint)res);
-                env->CallVoidMethod(threads,map_remove,path);
+                env->CallVoidMethod(pthis, finished, path, (jint) res);
+                env->CallVoidMethod(threads, map_remove, path);
                 break;
             }
             env->DeleteLocalRef(path);
