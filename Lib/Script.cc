@@ -26,7 +26,7 @@ unsigned long _impl_scriptmain(void *info) {
 	staticInfo->vm->AttachCurrentThreadAsDaemon((void**)&env, 0);
 	jout.rdbuf(staticInfo->joutbuf);
 	int res = scriptmain();
-	return res;
     staticInfo->vm->DetachCurrentThread();
+	return res;
 }
 
