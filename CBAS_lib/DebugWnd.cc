@@ -25,7 +25,7 @@
 using namespace std;
 
 long  DebugProc(HWND hwnd, unsigned int Message, unsigned int wParam, long lParam) {
-    DebugWindow* debug = (DebugWindow*) lParam;
+    DebugWindow* debug = (DebugWindow*) GetWindowLongPtr(hwnd,GWLP_USERDATA);
     switch(Message) {
         case WM_CREATE:
             break;
@@ -35,7 +35,7 @@ long  DebugProc(HWND hwnd, unsigned int Message, unsigned int wParam, long lPara
         case WM_PAINT: {
             PAINTSTRUCT paint;
             HDC dc = BeginPaint(hwnd, &paint);
-            //FillRect(dc, &paint.rcPaint, (HBRUSH)GetStockObject(BLACK_BRUSH));
+            BitBlt(dc, 0, 0, debug->width, debug->height, debug->hdc, 0, 0, SRCCOPY);
             EndPaint(hwnd, &paint);               
         }
         
@@ -43,7 +43,11 @@ long  DebugProc(HWND hwnd, unsigned int Message, unsigned int wParam, long lPara
     return DefWindowProc(hwnd, Message, wParam, lParam);
 }
 
-DebugWindow::DebugWindow(int width, int height) {
+DebugWindow::DebugWindow(int w, int h) : width(w), height(h) {
+    hdc = CreateCompatibleDC(0);
+    hbmp = CreateCompatibleBitmap(hdc,width,height);
+    SelectObject(hdc, hbmp);
+
     WNDCLASSEX wndclass;
     memset(&wndclass, 0, sizeof(WNDCLASSEX));
     wndclass.cbSize = sizeof(WNDCLASSEX);
@@ -60,23 +64,30 @@ DebugWindow::DebugWindow(int width, int height) {
     AdjustWindowRectEx(&size, WS_OVERLAPPEDWINDOW, true, WS_EX_OVERLAPPEDWINDOW);
     CreateWindowData data = {WS_EX_OVERLAPPEDWINDOW, "CBAS_DEBUG_BOX", "DebugBox", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, size.right - size.left, size.bottom - size.top, 0, 0, 0, (void*)this, &hwnd};
     SendMessage(staticInfo->messageGlobalHWND,WM_COMMAND,CREATE_WINDOW,reinterpret_cast<long>(&data));
+    SetWindowLongPtr(hwnd,GWLP_USERDATA,reinterpret_cast<long>(this));
     ShowWindow(hwnd, SW_SHOWNORMAL);
     UpdateWindow(hwnd);
-    //AttachThreadInput(GetCurrentThreadId(),messageLoopID,true);
 }
 
 DebugWindow::~DebugWindow() {
     DestroyWindow(hwnd);
+    DeleteDC(hdc);
+    DeleteObject(hbmp);
 }
 
 HDC DebugWindow::getHDC() {
-    return GetDC(hwnd);
+    HDC hdcMem = CreateCompatibleDC(hdc);
+    SelectObject(hdcMem, hbmp);
+    return hdcMem;
 }
 
 void DebugWindow::freeHDC(HDC dc) {
-    ReleaseDC(hwnd,dc);
+    DeleteDC(dc);
 }
 
+void DebugWindow::update() {
+    UpdateWindow(hwnd);
+}
 HWND DebugWindow::getHWND() {
     return hwnd;
 }

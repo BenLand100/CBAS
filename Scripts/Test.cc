@@ -9,5 +9,7 @@ int scriptmain() {
      HDC dc = debug.getHDC();
      BitBlt(dc, 50, 50, 50, 50, bmp.getDC(), 0, 0, SRCCOPY);
      debug.freeHDC(dc);
+     debug.update();
+     for (int i = 0; i < 400000000; i++) { debug.update(); }
      return 0;
 }

@@ -28,14 +28,19 @@
 long DebugProc(HWND hwnd, unsigned int Message, unsigned int wParam, long lParam) __attribute__((stdcall));
 
 class DebugWindow {
+friend long DebugProc(HWND hwnd, unsigned int Message, unsigned int wParam, long lParam) __attribute__((stdcall));
 public:
-    EXPORT DebugWindow(int width, int height);
+    EXPORT DebugWindow(int w, int h);
     EXPORT ~DebugWindow();
     EXPORT HDC getHDC();
     EXPORT void freeHDC(HDC dc);
     EXPORT HWND getHWND();
+    EXPORT void update();
 private:
+    int width,height;
     HWND hwnd; 
+    HDC hdc;
+    HBITMAP hbmp;
 };
 
 #endif

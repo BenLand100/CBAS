@@ -259,29 +259,15 @@ public class CodeEditor extends JFrame implements WindowListener, ChangeListener
             data.compiling = true;
             Thread compile = new Thread("Compile") {
 
-                private void pumpErrStream(Process proc) throws IOException {
-                    InputStream in = proc.getErrorStream();
-                    StringBuilder resBuf = new StringBuilder();
-                    byte[] buffer = new byte[5000];
-                    int len;
-                    while ((len = in.read(buffer)) != -1) {
-                        resBuf.append(new String(buffer, 0, len));
-                    }
-                    String result = resBuf.toString().replaceAll("\\Q" + dir.getAbsolutePath().replaceAll("\\\\", "\\\\") + "\\E", "");
+                private void printErrStream(StringBuilder err) throws IOException {
+                    String result = err.toString().replaceAll("\\Q" + dir.getAbsolutePath().replaceAll("\\\\", "\\\\") + "\\E", "");
                     out.print(result);
                 }
                 
-                private String getLibs(Process proc) throws IOException {
-                    InputStream in = proc.getErrorStream();
-                    StringBuilder resBuf = new StringBuilder();
-                    byte[] buffer = new byte[5000];
-                    int len;
-                    while ((len = in.read(buffer)) != -1) {
-                        resBuf.append(new String(buffer, 0, len));
-                    }
+                private String getLibs(StringBuilder err) throws IOException {
                     Set<String> set = new TreeSet<String>();
                     set.add("libcbas");
-                    Matcher m = Pattern.compile("links ([^\n]+)").matcher(resBuf);
+                    Matcher m = Pattern.compile("links ([^\n]+)").matcher(err);
                     while (m.find()) {
                         set.add(m.group(1));
                     }
@@ -290,6 +276,42 @@ public class CodeEditor extends JFrame implements WindowListener, ChangeListener
                         libs.append(" -l").append(str.trim());
                     System.out.println(libs);
                     return libs.toString();
+                }
+                
+                private int waitfor(Process proc, StringBuilder out, StringBuilder err) {
+                    InputStream str_out = proc.getInputStream();
+                    InputStream str_err = proc.getErrorStream();
+                    int retVal = 0;
+                    boolean finished = false;
+                    byte[] buffer = new byte[5000];
+                    int len;
+                    while (!finished) {
+	                    try {
+                            while (err != null && (len = str_err.read(buffer)) != -1) {
+                                err.append(new String(buffer, 0, len));
+                            }
+                            while (out != null && (len = str_out.read(buffer)) != -1) {
+                                out.append(new String(buffer, 0, len));
+                            }
+		                    retVal = proc.exitValue();
+		                    finished = true;
+	                    } catch (Exception e) {
+		                    try {
+			                    Thread.sleep(10);
+		                    } catch (InterruptedException x) { }
+	                    }
+                    }
+                    try {
+                        while (err != null && (len = str_err.read(buffer)) != -1) {
+                            err.append(new String(buffer, 0, len));
+                        }
+                    } catch (Exception e) { }
+                    try {
+                        while (out != null && (len = str_out.read(buffer)) != -1) {
+                            out.append(new String(buffer, 0, len));
+                        }
+                    } catch (Exception e) { }
+                    return retVal;
                 }
 
                 public void run() {
@@ -300,15 +322,17 @@ public class CodeEditor extends JFrame implements WindowListener, ChangeListener
                             return;
                         }
                         File script_object = new File(lib, "Script.o");
+                        StringBuilder err;
                         if (!script_object.exists() || script_source.lastModified() > script_object.lastModified()) {
                             out.println("Recompiling Script.cc");
                             Process build = Runtime.getRuntime().exec(comp.getAbsolutePath() + " -I\"" + inc.getAbsolutePath() + "\" -O3 -s -c \"" + script_source.getAbsolutePath() + "\" -o \"" + script_object.getAbsolutePath() + "\"");
-                            int error = build.waitFor();
+                            err = new StringBuilder();
+                            int error = waitfor(build,null,err);
                             if (error == 0) {
                                 out.println("Successfully Recompiled");
                             } else {
                                 out.println("Recompile Failed! Exit Value: " + error);
-                                pumpErrStream(build);
+                                printErrStream(err);
                                 return;
                             }
                         }
@@ -319,25 +343,27 @@ public class CodeEditor extends JFrame implements WindowListener, ChangeListener
                         out.println("Compiling " + data.name);
                         File object = new File(obj, data.name + ".o");
                         Process build = Runtime.getRuntime().exec(comp.getAbsolutePath() + " -I\"" + inc.getAbsolutePath() + "\" -O3 -s -c \"" + data.file.getAbsolutePath() + "\" -o \"" + object.getAbsolutePath() + "\"");
-                        int build_res = build.waitFor();
+                        err = new StringBuilder();
+                        int build_res = waitfor(build,null,err);
                         String libs = "";
                         if (build_res == 0) {
                             out.println("Successfully Compiled");
-                            libs = getLibs(build);
+                            libs = getLibs(err);
                         } else {
                             out.println("Compile Failed! Exit Value: " + build_res);
-                            pumpErrStream(build);
+                            printErrStream(err);
                             return;
                         }
                         out.println("Linking " + data.name);
                         File dll = new File(bin, data.name + ".dll");
                         Process link = Runtime.getRuntime().exec(comp.getAbsolutePath() + " -shared -o \"" + dll.getAbsolutePath() + "\" -s \"" + object.getAbsolutePath() + "\" \"" + script_object.getAbsolutePath() + "\" -L\"" + lib.getAbsolutePath() + "\"" + libs);
-                        int link_res =  link.waitFor();
+                        err = new StringBuilder();
+                        int link_res =  waitfor(link,null,err);
                         if (link_res == 0) {
                             out.println("Successfully Linked");
                         } else {
                             out.println("Link Failed! Exit Value: " + link_res);
-                            pumpErrStream(link);
+                            printErrStream(err);
                             return;
                         }
                         data.dll = dll;
